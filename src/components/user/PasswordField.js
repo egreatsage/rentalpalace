@@ -11,7 +11,7 @@ import React, { useState } from 'react'
       }
   return (
     <TextField
-    autoFocus
+    
     margin='normal'
     variant='standard'
     id={id} 

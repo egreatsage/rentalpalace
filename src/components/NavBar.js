@@ -1,11 +1,10 @@
 import React from 'react'
 import {Menu,Lock} from '@mui/icons-material'
 import {AppBar,Toolbar,Container, Box, IconButton,Button, Typography} from '@mui/material'
-import photoURL from '../profile.jpg'
 import Usericons from './user/Usericons'
 import { useValue } from '../context/ContextProvider'
 
-const user = {name:'test', photoURL}
+
 
 const NavBar = () => {
       const {state:{currentUser},

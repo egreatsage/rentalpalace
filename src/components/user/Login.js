@@ -1,7 +1,8 @@
 import { Close, Send } from '@mui/icons-material'
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, TextField } from '@mui/material'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useValue } from '../../context/ContextProvider'
+import GoogleOneTapLogin from './GoogleOneTapLogin'
 import PasswordField from './PasswordField'
 
 const Login = () => {
@@ -17,7 +18,25 @@ const Login = () => {
     }
 const handleSubmit =(e)=>{
     e.preventDefault()
+    //testing loading
+            dispatch({ type:'START_LOADING'})
+            
+            setTimeout(() =>{
+                dispatch({type: 'END_LOADING'})
+            },6000)
+
+    //testing notification
+    const password = passwordRef.current.value
+    const confirmPassword = confirmPasswordRef.current.value
+    if(password !== confirmPassword){
+        dispatch({type:'UPDATE_ALERT',payload:{open:true, severity:'error',message:'Passwords do not match'}})
+    } 
+   
 }
+   useEffect(() => {
+    isRegister ? setTitle('Register') :setTitle('Login')
+   }, [isRegister])
+   
   return (
    <Dialog
    open={openLogin}
@@ -43,7 +62,7 @@ const handleSubmit =(e)=>{
                             {isRegister &&
                             <TextField
                             autoFocus
-                            margin='dense'
+                            margin='normal'
                             variant='standard'
                             id='name' 
                             label='Name'
@@ -56,13 +75,13 @@ const handleSubmit =(e)=>{
                             
                             <TextField
                             autoFocus={!isRegister}
-                            margin='dense'
+                            margin='normal'
                             variant='standard'
                             id='email' 
                             label='Email'
                             type='email'
                             fullWidth
-                            inputRef={nameRef}
+                            inputRef={emailRef}
                             required/>
 
                             <PasswordField {...{passwordRef}}/>
@@ -71,7 +90,7 @@ const handleSubmit =(e)=>{
                             <PasswordField passwordRef={confirmPasswordRef} id='confirmPassword'
                             label='Confirm Password'/> }
                         </DialogContent>
-                        <DialogActions>
+                        <DialogActions sx={{px:'19px'}}>
                             <Button type='submit' variant='contained' endIcon={<Send/> }>
                                 Submit
                             </Button>
@@ -82,6 +101,9 @@ const handleSubmit =(e)=>{
                         <Button onClick={()=>setIsRegister(!isRegister)}>
                             {isRegister ? 'Login':'Register'}
                         </Button>
+                    </DialogActions>
+                    <DialogActions sx={{justifyContent:'center',py:'24px'}}>
+                        <GoogleOneTapLogin/>
                     </DialogActions>
    </Dialog>
   )
