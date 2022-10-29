@@ -83,9 +83,7 @@ const handleSubmit =(e)=>{
                             fullWidth
                             inputRef={emailRef}
                             required/>
-
                             <PasswordField {...{passwordRef}}/>
-
                             {isRegister && 
                             <PasswordField passwordRef={confirmPasswordRef} id='confirmPassword'
                             label='Confirm Password'/> }
